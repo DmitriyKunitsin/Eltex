@@ -5,6 +5,7 @@ FUNCTION = function.c
 FILES_ONE = ex_1.c 
 FILES_TWO = ex_2.c
 FILES_THREE = ex_3.c
+FILES_FOUR = ex_4.c
 
 ex1 :
 	$(CC) $(CFLAGS) -c $(FILES_ONE) -o ex_1.o
@@ -24,12 +25,21 @@ ex3 :
 	$(CC) ex_3.o function.o -o programm
 	./programm
 
+ex4 :
+	$(CC) $(CFLAGS) -c $(FILES_FOUR) -o ex_4.o
+	$(CC) $(CFLAGS) -c $(FUNCTION) -o function.o
+	$(CC) ex_4.o function.o -o programm
+	./programm
 
 clang :
 	clang-format --style=Google -n $(FILES_ONE)
 	clang-format --style=Google -i $(FILES_ONE)
 	clang-format --style=Google -n $(FILES_TWO)
 	clang-format --style=Google -i $(FILES_TWO)
+	clang-format --style=Google -n $(FILES_THREE)
+	clang-format --style=Google -i $(FILES_THREE)
+	clang-format --style=Google -n $(FILES_FOUR)
+	clang-format --style=Google -i $(FILES_FOUR)
 	clang-format --style=Google -n $(FUNCTION)
 	clang-format --style=Google -i $(FUNCTION)
 
@@ -37,5 +47,6 @@ clean :
 	rm -rf ex_1.o
 	rm -rf ex_2.o 
 	rm -rf ex_3.o
+	rm -rf ex_4.o
 	rm -rf function.o
 	rm -rf programm

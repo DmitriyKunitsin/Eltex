@@ -8,13 +8,13 @@ int main() {
   int val = 0;
   __uint8_t checkValidation = 0;
   do {
-    printf("Введите положительное число: ");
-    if ((checkValidation = scanf("%d", &val)) != 1) {
-      printf("Некорректный ввод. Пожалуйста, введите число.\n");
+    printf("Введите отрицательное число: ");
+    if (((checkValidation = scanf("%d", &val)) != 1) || val >= 0) {
+      printf("Некорректный ввод. Пожалуйста, введите отрицательное число.\n");
       while (getchar() != '\n') {
       };
     }
-  } while (checkValidation != 1);
+  } while (checkValidation != 1 || val >= 0);
 
   print_all_bit(val);
 

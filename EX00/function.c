@@ -11,17 +11,6 @@ void print_u_bit(const int num) {
   printf("\n");
 }
 
-void print_all_bit(const int num) {
-  int size = (int)(sizeof(int) * 8 - 1);
-  for (int i = size; i >= 0; --i) {
-    printf("%d", (num >> i) & 1);
-    if (i % 8 == 0 && i != 0) {
-      printf(",");
-    }
-  }
-  printf("\n");
-}
-
 int counter_bit(const int num) {
   int size = (int)(sizeof(int) * 8 - 1);
   int count = 0;

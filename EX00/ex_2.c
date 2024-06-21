@@ -16,7 +16,7 @@ int main() {
     }
   } while (checkValidation != 1 || val >= 0);
 
-  print_all_bit(val);
+  print_u_bit(val);
 
   return 0;
 }

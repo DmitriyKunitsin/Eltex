@@ -1,5 +1,6 @@
 FILES_ONE = ex_1.c
 FILES_TWO = ex_2.c
+FILES_THREE = ex_3.c
 FUNCTION = function.c
 GCC = gcc
 CGFLAG = -Wall -Werror -Wextra
@@ -17,18 +18,18 @@ ex2 :
 	$(GCC) ex2.o function.o -o $(PROGRAMM)
 	./$(PROGRAMM)
 
-clang_check :
-	clang-format --style=Google -n $(FUNCTION)
-	clang-format --style=Google -n $(FILES_ONE)
-	clang-format --style=Google -n $(FILES_TWO)
+ex3 :
+	$(GCC) $(CGFLAG) -c $(FILES_THREE) -o ex3.o
+	$(GCC) $(CGFLAG) -c $(FUNCTION) -o function.o
+	$(GCC) ex3.o function.o -o $(PROGRAMM)
+	./$(PROGRAMM)
+
+CFcheck :
+	clang-format --style=Google -n *.c
 
 clang :
-	clang-format --style=Google -i $(FUNCTION)
-	clang-format --style=Google -i $(FILES_ONE)
-	clang-format --style=Google -i $(FILES_TWO)
+	clang-format --style=Google -i *.c
 
 clean :
-	rm -rf ex1.o
-	rm -rf ex2.o
-	rm -rf function.o
+	rm -rf *.o
 	rm -rf $(PROGRAMM)

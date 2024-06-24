@@ -38,3 +38,15 @@ void swapArray(int *arr) {
     arr[size - i - 1] = temp;
   }
 }
+
+void fillUpperTriangleWithOnes(int (*matrix)[N]) {
+  for (int i = 0; i < N; ++i) {
+    for (int j = 0; j < N; ++j) {
+      if ((i + (j + 1)) >= N) {
+        matrix[i][j] = 1;
+      } else {
+        matrix[i][j] = 0;
+      }
+    }
+  }
+}

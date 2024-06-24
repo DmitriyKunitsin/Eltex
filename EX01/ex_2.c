@@ -15,6 +15,6 @@ int main(void) {
   swapArray(arr);
   printf("Вывод -> ");
   printfArray(arr);
-  
+
   return 0;
 }

@@ -11,5 +11,6 @@ void initArray(int *arr);
 void printfArray(int arr[N]);
 void swapArray(int *arr);
 void fillUpperTriangleWithOnes(int (*matrix)[N]);
+void fillMatrixInSpiralOrder(int (*matrix)[N]);
 
 #endif

@@ -27,6 +27,7 @@ void printfArray(int arr[N]) {
   for (int i = 0; i < N; ++i) {
     printf("%d ", arr[i]);
   }
+  printf("\n");
 }
 
 void swapArray(int *arr) {

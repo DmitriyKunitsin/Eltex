@@ -12,10 +12,9 @@ int main(void) {
   initArray(arr);
   printf("Ввод -> ");
   printfArray(arr);
-  printf("\n");
   swapArray(arr);
   printf("Вывод -> ");
   printfArray(arr);
-  printf("\n");
+  
   return 0;
 }

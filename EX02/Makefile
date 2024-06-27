@@ -1,4 +1,5 @@
 FILES_ONE = ex_1.c
+FILES_TWO = ex_2.c
 FNCTION = function.c
 GCC = gcc
 CFLAG = -std=c11 -Wall -Werror -Wextra
@@ -10,6 +11,12 @@ ex1 :
 	$(GCC) $(CFLAG) -c $(FILES_ONE) -o ex1.o
 	$(GCC) $(CFLAG) -c $(FNCTION) -o function.o
 	$(GCC) ex1.o function.o -o $(PROGRAMM)
+	./$(PROGRAMM)
+
+ex2 :
+	$(GCC) $(CFLAG) -c $(FILES_TWO) -o ex2.o
+	$(GCC) $(CFLAG) -c $(FNCTION) -o function.o
+	$(GCC) ex2.o function.o -o $(PROGRAMM)
 	./$(PROGRAMM)
 
 clang :

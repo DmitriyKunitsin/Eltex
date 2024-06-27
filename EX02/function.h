@@ -6,5 +6,6 @@
 
 int input();
 int changeThirdByte(int value);
+void printArray(int *arr);
 
 #endif

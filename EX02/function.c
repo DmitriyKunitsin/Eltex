@@ -1,5 +1,12 @@
 #include "function.h"
 
+void printArray(int *arr) {
+    for(int i = 1; i <= 10; ++i) {
+        *arr = i;
+        printf("%d\n", *arr++);
+    }
+}
+
 int changeThirdByte(int value) {
   int inputUserValue = input();
   char* ptr;

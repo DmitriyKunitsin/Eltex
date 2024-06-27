@@ -1,5 +1,6 @@
 FILES_ONE = ex_1.c
 FILES_TWO = ex_2.c
+FILES_THEE = ex_3.c
 FNCTION = function.c
 GCC = gcc
 CFLAG = -std=c11 -Wall -Werror -Wextra
@@ -19,6 +20,13 @@ ex2 :
 	$(GCC) ex2.o function.o -o $(PROGRAMM)
 	./$(PROGRAMM)
 
+ex3 :
+	$(GCC) $(CFLAG) -c $(FILES_THEE) -o ex3.o
+	$(GCC) $(CFLAG) -c $(FNCTION) -o function.o
+	$(GCC) ex3.o function.o -o $(PROGRAMM)
+	./$(PROGRAMM)
+
+	
 clang :
 	clang-format --style=Google -n *.c
 	clang-format --style=Google -i *.c

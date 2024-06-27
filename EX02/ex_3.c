@@ -6,7 +6,7 @@
 #include "function.h"
 
 int main(void) {
-    int arr[10] = {10};
-    printArray(arr);
-    return 0;
+  int arr[10] = {10};
+  printArray(arr);
+  return 0;
 }

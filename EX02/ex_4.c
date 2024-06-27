@@ -5,7 +5,6 @@
 
 #include "function.h"
 
-#define N 100
 int main(void) {
   char arr[N];
   char sub[N];

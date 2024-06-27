@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+#define N 100
 
 int input();
 int changeThirdByte(int value);

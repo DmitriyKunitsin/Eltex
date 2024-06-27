@@ -64,6 +64,6 @@ char* SearchStrk(char* arr, char* sub) {
     arr++;
     count++;
   }
-  printf("Адрес начинается с номера %d символа\n", count);
+  printf("Символ %d в строке, начинает подстроку\n", ++count);
   return ptr;
 }

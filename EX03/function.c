@@ -16,37 +16,65 @@ void selectedMenu(int selectedItem, struct abonent *abonent) {
       addUser(abonent);
       break;
     case 2:
-      /* code */
+      removeUser(abonent);
       break;
     case 3:
-      /* code */
+      searchUser(abonent);
       break;
     case 4:
       printAllUser(abonent);
       break;
   }
 }
+void searchUser(struct abonent *abonent) {
+  char name[10];
+  printf("Введите имя абонента для поиска :");
+  inputSting(name);
+  system("clear");
+  int counterValid = 0;
+  for (int i = 0; i < 100; ++i) {
+    if (checkValidName(abonent[i].name, name) == 1) {
+      counterValid++;
+      printCurrentUser(abonent[i], counterValid);
+    }
+  }
+  printf("Совпадений найдено %d\n", counterValid);
+}
 
+void removeUser(struct abonent *abonent) {
+  char name[10];
+  printf("Введите Имя абонента для удаления : ");
+  inputSting(name);
+  deletedUser(abonent, name);
+}
+void inputSting(char *val) {
+  scanf("%9s", val);
+  while (getchar() != '\n') {
+  };
+}
 void addUser(struct abonent *abonent) {
   printf("Введите Имя абонента : ");
   char name[10];
-  scanf("%s", name);
+  inputSting(name);
   printf("Введите второе имя абонента : ");
   char second_name[10];
-  scanf("%s", second_name);
+  inputSting(second_name);
   printf("Введите телефон абонента : ");
   char tel[10];
-  scanf("%s", tel);
-
+  inputSting(tel);
   int index = searchIndexNullAbonent(abonent);
-  strcpy(abonent[index].name, name);
-  strcpy(abonent[index].second_name, second_name);
-  strcpy(abonent[index].tel, tel);
+  if (index == -1) {
+    printf("Справочник переполнен, не более 100 записей \n");
+  } else {
+    strcpy(abonent[index].name, name);
+    strcpy(abonent[index].second_name, second_name);
+    strcpy(abonent[index].tel, tel);
+  }
 }
 int searchIndexNullAbonent(struct abonent *abonent) {
-  int index = 0;
+  int index = -1;
   for (int i = 0; i < 100; ++i) {
-    if (abonent->name[i] == 0) {
+    if (0 == my_strlen(abonent[i].name)) {
       index = i;
       break;
     }
@@ -54,6 +82,11 @@ int searchIndexNullAbonent(struct abonent *abonent) {
   return index;
 }
 
+void printCurrentUser(struct abonent abonent, int i) {
+  printf("%d. Name : %s\n", i, abonent.name);
+  printf("   Second name :%s\n", abonent.second_name);
+  printf("   Phone : %s\n", abonent.tel);
+}
 void printAllUser(struct abonent *abonent) {
   system("clear");
   for (int i = 0; i < 100; ++i) {
@@ -76,18 +109,32 @@ void deletedUser(struct abonent *abonent, char *name) {
       break;
     }
   }
-  flag == 1 ? printf("Пользователь удален, успешно")
-            : printf("Пользователь с таким именем не найден");
+  system("clear");
+  flag == 1 ? printf("Пользователь удален, успешно\n")
+            : printf("Пользователь с таким именем не найден\n");
 }
-
+int my_strlen(char *arr) {
+  int i = 0;
+  while (*arr != '\0') {
+    arr++;
+    i++;
+  }
+  return i;
+}
 int checkValidName(char *nameCurrent, char *nameSearch) {
   int valie = 1;
-  while (*nameCurrent != '\0') {
-    if (*nameCurrent != *nameSearch) {
-      valie = 0;
+  int len_cur = my_strlen(nameCurrent);
+  int len_search = my_strlen(nameSearch);
+  if (len_cur != len_search) {
+    valie = 0;  // Строки разной длины, не совпадают
+  } else {
+    while (*nameCurrent != '\0') {
+      if (*nameCurrent != *nameSearch) {
+        valie = 0;
+      }
+      nameCurrent++;
+      nameSearch++;
     }
-    nameCurrent++;
-    nameSearch++;
   }
   return valie;
 }

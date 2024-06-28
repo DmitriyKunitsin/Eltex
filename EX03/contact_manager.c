@@ -27,6 +27,8 @@ int main(void) {
   do {
     printMenu();
     scanf("%d", &input);
+    while (getchar() != '\n') {
+    };
     selectedMenu(input, Contacts);
   } while (input != 5);
 

@@ -1,7 +1,8 @@
 #include "function.h"
 
 void printArray(int* arr) {
-  for (int i = 1; i <= 10; ++i) {
+  int i;
+  for (i = 1; i <= 10; ++i) {
     *arr = i;
     printf("%d\n", *arr++);
   }
@@ -25,7 +26,7 @@ int input() {
     if ((checkValidation = scanf("%d", &val)) != 1 || val < 0) {
       printf("Некорректный ввод. Пожалуйста, введите положительное число.\n");
       while (getchar() != '\n') {
-      };  // Очистка буфера ввода
+      };
     }
   } while (checkValidation != 1 || val < 0);
   return val;
@@ -42,7 +43,8 @@ int my_strlen(char* arr) {
 
 int check(char* arr, char* sub, int len) {
   int valid = 1;
-  for (int i = 0; i < len; ++i) {
+  int i;
+  for (i = 0; i < len; ++i) {
     if (*arr != *sub) {
       valid = 0;
     }

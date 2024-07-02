@@ -12,7 +12,7 @@ l | list
 ```
 ### Чтобы установить брейкпоинт
 ```
-b
+b 5
 b myFile.c:100
 b my_procedure_name 
 ```

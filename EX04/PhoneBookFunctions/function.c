@@ -105,8 +105,6 @@ void deletedUser(struct abonent *abonent, char *name) {
       strcpy(abonent[i].second_name, "");
       strcpy(abonent[i].tel, "");
       flag = 1;
-
-      break;
     }
   }
   system("clear");

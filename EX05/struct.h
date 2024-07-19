@@ -1,6 +1,8 @@
 /**
  * @file struct.h
  * @brief Мое жалкое пародие на лист
+ * @author Дммитрий Куницин
+ * @version 1.0
  */
 #include <stdio.h>
 #include <stdlib.h>

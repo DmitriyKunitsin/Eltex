@@ -10,5 +10,6 @@ int main(void) {
     selectedMenu(input, Contacts);
   } while (input != 5);
   db_print(Contacts);
+  db_free(Contacts);
   return 0;
 }

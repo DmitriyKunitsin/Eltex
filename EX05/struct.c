@@ -10,7 +10,24 @@ struct list *db_created() {
 
   return lst;
 }
+void free_abonent(struct list_abonent *abonent) {
+  if (abonent == NULL) {
+    return;
+  }
+  free_abonent(abonent->next);
+  free(abonent->name);
+  free(abonent->second_name);
+  free(abonent->tel);
+  free(abonent);
+}
 
+void db_free(struct list *lst) {
+  if (lst == NULL) {
+    return;
+  }
+  free_abonent(lst->head);
+  free(lst);
+}
 void db_insert(struct list *lst, int index, char *name, char *second_name,
                char *tel) {
   struct list_abonent *base = lst->head;

@@ -29,6 +29,10 @@ struct list
  * @brief Создание листа для наполнения списка
  */
 struct list *db_created();
+
+void free_abonent(struct list_abonent *abonent);
+
+void db_free(struct list *lst);
 /**
  * @brief Добавление в листпользователя
  */

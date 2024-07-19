@@ -13,6 +13,13 @@ run :
 	@$(GCC) manag.o function.o struct.o -o $(PROGRAM)
 	@./$(PROGRAM)
 
+valgrid:
+	@$(GCC) $(CFLAG) -c $(MANAGER) -o manag.o
+	@$(GCC) $(CFLAG) -c $(FUNCTION) -o function.o
+	@$(GCC) $(CFLAG) -c $(STRUCT) -o struct.o
+	@$(GCC) manag.o function.o struct.o -o $(PROGRAM)
+	@valgrind --leak-check=full ./$(PROGRAM)
+
 clang :
 	clang-format --style=Google -n *.c
 	clang-format --style=Google -i *.c

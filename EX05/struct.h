@@ -29,9 +29,13 @@ struct list
  * @brief Создание листа для наполнения списка
  */
 struct list *db_created();
-
+/**
+ * @brief Рекурсивная очистка структура контактов
+ */
 void free_abonent(struct list_abonent *abonent);
-
+/**
+ * @brief Очищение листа
+ */
 void db_free(struct list *lst);
 /**
  * @brief Добавление в листпользователя

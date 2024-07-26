@@ -9,21 +9,21 @@
  * @brief сложение
  * @returns складывает первый аргумент с вторым
  */
-int add(int a, int b);
+float add(float a, float b);
 /**
  * @brief вычитание
  * @returns отнимает первый аргумент от второго
  */
-int sub(int a, int b);
+float sub(float a, float b);
 /**
  * @brief умножение
  * @returns умножает первый аргумент на второй
  */
-int mul(int a, int b);
+float mul(float a, float b);
 /**
  * @brief деление
  * @returns делит первый аргумент на второй
  */
-int div(int a, int b);
+float div(float a, float b);
 
 #endif

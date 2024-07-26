@@ -1,5 +1,8 @@
 #ifndef CALC_H
 #define CALC_H
+
+#include <stdio.h>
+
 /**
  * @file calc.h
  * @brief реализация калькулятора
@@ -25,5 +28,21 @@ float mul(float a, float b);
  * @returns делит первый аргумент на второй
  */
 float div(float a, float b);
+/**
+ * @brief вывод меню на консоль
+ */
+void print_menu();
+/**
+ * @brief ввод пользователя 
+ * Делает проверку, что пользователь ввел число
+ * @returns возвращает корректный ввод пользователя
+ */
+float input(int a);
+/**
+ * @brief Вывод результата
+ * Если результат без остатка, 
+ * то выводит как целое, иначе выводит с остатком
+ */
+void printResult(float res);
 
 #endif

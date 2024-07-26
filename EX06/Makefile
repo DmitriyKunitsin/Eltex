@@ -19,6 +19,7 @@ libcalc.a: build_dir
 	$(GCC) $(CFLAG) -c $(SRC)/sub.c -o $(BUILD_DIR)/sub.o
 	$(GCC) $(CFLAG) -c $(SRC)/mul.c -o $(BUILD_DIR)/mul.o
 	$(GCC) $(CFLAG) -c $(SRC)/div.c -o $(BUILD_DIR)/div.o
+	$(GCC) $(CFLAG) -c $(SRC)/helpers.c -o $(BUILD_DIR)/help.o
 	ar rc $(LIB_DIR)/$(LIB_NAME).a $(BUILD_DIR)/*.o
 	ranlib $(LIB_DIR)/$(LIB_NAME).a
 	rm -rf $(BUILD_DIR)/*.o

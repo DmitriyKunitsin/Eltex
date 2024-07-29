@@ -27,6 +27,12 @@ obj:
 	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/div.c -o build/div.o
 	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/helpers.c -o build/help.o
 
+dvi: 
+	mkdir -p docs
+	doxygen
+	open docs/html/index.html
+
+
 # Правило для создания директорий
 build_dir:
 	@mkdir -p $(BUILD_DIR)
@@ -34,6 +40,6 @@ build_dir:
 
 # Правило clean для удаления созданных файлов
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME) bin
+	rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME) bin docs
 
 .PHONY: all clean build_dir

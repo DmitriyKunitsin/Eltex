@@ -13,7 +13,7 @@ int main() {
       break;
     }
 
-    printf("Введите два числа: ");
+    printf("Введите два числа: \n");
     a = input(1);
     b = input(2);
 

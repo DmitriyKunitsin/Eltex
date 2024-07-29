@@ -21,11 +21,11 @@ my_libs/libcalc.so: obj
 
 # Правило для компиляции исходных файлов в объектные файлы
 obj: 
-	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c src/add.c -o build/add.o
-	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/sub.c -o build/sub.o
-	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/mul.c -o build/mul.o
-	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/div.c -o build/div.o
-	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/helpers.c -o build/help.o
+	$(GCC) $(CFLAGS) -c src/add.c -o build/add.o
+	$(GCC) $(CFLAGS) -c  src/sub.c -o build/sub.o
+	$(GCC) $(CFLAGS) -c  src/mul.c -o build/mul.o
+	$(GCC) $(CFLAGS) -c  src/div.c -o build/div.o
+	$(GCC) $(CFLAGS) -c  src/helpers.c -o build/help.o
 
 dvi: 
 	mkdir -p docs

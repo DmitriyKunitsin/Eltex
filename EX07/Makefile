@@ -8,15 +8,15 @@ CFLAGS = -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic
 LDFLAGS = -shared
 
 # Правило по умолчанию для сборки библиотеки
-all: build_dir my_libs/libcalc.so install
+all: build_dir $(LIB_DIR)/$(LIB_NAME) install
 
-install: my_libs/$(LIB_NAME)
+install: $(LIB_DIR)/$(LIB_NAME)
 	@mkdir -p bin
 	@$(GCC) $(CFLAGS) -Wl,-rpath=$(realpath ../my_libs) src/main.c -o bin/calculate -L./my_libs -lcalc
 
 
 # Правило для создания динамической библиотеки
-my_libs/libcalc.so: obj
+$(LIB_DIR)/$(LIB_NAME): obj
 	@$(GCC) -shared -o my_libs/$(LIB_NAME) build/*.o
 
 # Правило для компиляции исходных файлов в объектные файлы

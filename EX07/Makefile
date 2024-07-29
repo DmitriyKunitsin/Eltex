@@ -1,54 +1,31 @@
-LIB_NAME = libcalc.so #Имя библиотеки
-LIB_DIR = lib # Директория для библиотеки
-BUILD_DIR = build # Директория для объектных файлов
-SRC_DIR = src # Директория с исходными файлами
+LIB_NAME = libcalc.so # Имя библиотеки
+LIB_DIR = my_libs          # Директория для библиотеки
+BUILD_DIR = build      # Директория для объектных файлов
+SRC_DIR = src          # Директория с исходными файлами
 
 GCC = gcc
-CFLAGS = -std=c11 -Wall -Werror -Wextra -Wpedantic
+CFLAGS = -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic
+LDFLAGS = -shared
 
-# Список исходных файлов
-SRC_FILES = add.c sub.c mul.c div.c helpers.c # файлы что я хочу скомпилировать
+# Правило по умолчанию для сборки библиотеки
+all: build_dir my_libs/libcalc.so install
 
-# OBJ_FILES =$(BUILD_DIR)/add.o $(BUILD_DIR)/sub.o $(BUILD_DIR)/mul.o $(BUILD_DIR)/div.o $(BUILD_DIR)/helpers.o
-# список объектных файлов на основе исходных файлов. 
-# Это делается с помощью функции `patsubst`, 
-# которая заменяет часть имени файла
-OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(addprefix $(SRC_DIR)/,$(SRC_FILES)))
-# addprefix добавляет префикс `src/` к каждому из имен файлов 
-# в `SRC_FILES`\. Например, `add.c` становится `src/add.c`\.
-# ------------------------------------------------ #
-# patsubst заменяет `src/имя.c` на `build/имя.o`\. 
-# Это создает список объектных файлов\.
-# ------------------------------------------------ #
+install: my_libs/$(LIB_NAME)
+	mkdir -p bin
+	$(GCC) $(CFLAGS) -Wl,-rpath=$(realpath ../my_libs) src/main.c -o bin/calculate -L./my_libs -lcalc
+
 
 # Правило для создания динамической библиотеки
-$(LIB_DIR)/$(LIB_NAME): $(OBJ_FILES)
-	$(GCC) -shared -o $@ $^
-# $(LIB_DIR)/$(LIB_NAME)` — это цель, которую мы хотим создать 
-# например, lib/libcalc.so.
-# -------------------------
-# $(OBJ_FILES)` — это зависимости, то есть объектные файлы, 
-# которые нужны для создания 
-# -------------------------
-# Команда $(GCC) -shared -o $@ $^ говорит компилятору
-# создать динамическую библиотеку из объектных файлов
-# -------------------------
-# $@` — это имя цели в данном случае `lib/libcalc.so
-# -------------------------
-# $^ — это все зависимости все объектные файлы
+my_libs/libcalc.so: obj
+	$(GCC) -shared -o my_libs/$(LIB_NAME) build/*.o
 
-
-# Правила для компиляции исходных файлов в объектные файлы
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | build_dir
-	$(GCC) $(CFLAGS) -c $< -o $@
-
-# - `$(BUILD_DIR)/%.o` — это имя целевого объектного файла\.
-# \- `$(SRC_DIR)/%.c` — это исходный файл, который мы хотим скомпилировать\.
-# \- `| build_dir` — это зависимость, которая гарантирует, что директория для сборки будет создана перед компиляцией\.
-# \- Команда `$(GCC) $(CFLAGS) -c $< -o $@` говорит компилятору:
-#   \- `-c` — компилировать только, без линковки\.
-#   \- `$<` — это первый элемент из зависимостей \(исходный файл\)\.
-#   \- `$@` — это имя целевой файл \(объектный файл\)\.
+# Правило для компиляции исходных файлов в объектные файлы
+obj: 
+	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c src/add.c -o build/add.o
+	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/sub.c -o build/sub.o
+	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/mul.c -o build/mul.o
+	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/div.c -o build/div.o
+	$(GCC) -fPIC -std=c11 -Wall -Werror -Wextra -Wpedantic -c  src/helpers.c -o build/help.o
 
 # Правило для создания директорий
 build_dir:
@@ -57,4 +34,6 @@ build_dir:
 
 # Правило clean для удаления созданных файлов
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME)
+	rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME) bin
+
+.PHONY: all clean build_dir

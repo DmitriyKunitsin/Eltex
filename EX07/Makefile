@@ -11,21 +11,21 @@ LDFLAGS = -shared
 all: build_dir my_libs/libcalc.so install
 
 install: my_libs/$(LIB_NAME)
-	mkdir -p bin
-	$(GCC) $(CFLAGS) -Wl,-rpath=$(realpath ../my_libs) src/main.c -o bin/calculate -L./my_libs -lcalc
+	@mkdir -p bin
+	@$(GCC) $(CFLAGS) -Wl,-rpath=$(realpath ../my_libs) src/main.c -o bin/calculate -L./my_libs -lcalc
 
 
 # Правило для создания динамической библиотеки
 my_libs/libcalc.so: obj
-	$(GCC) -shared -o my_libs/$(LIB_NAME) build/*.o
+	@$(GCC) -shared -o my_libs/$(LIB_NAME) build/*.o
 
 # Правило для компиляции исходных файлов в объектные файлы
 obj: 
-	$(GCC) $(CFLAGS) -c src/add.c -o build/add.o
-	$(GCC) $(CFLAGS) -c  src/sub.c -o build/sub.o
-	$(GCC) $(CFLAGS) -c  src/mul.c -o build/mul.o
-	$(GCC) $(CFLAGS) -c  src/div.c -o build/div.o
-	$(GCC) $(CFLAGS) -c  src/helpers.c -o build/help.o
+	@$(GCC) $(CFLAGS) -c src/add.c -o build/add.o
+	@$(GCC) $(CFLAGS) -c  src/sub.c -o build/sub.o
+	@$(GCC) $(CFLAGS) -c  src/mul.c -o build/mul.o
+	@$(GCC) $(CFLAGS) -c  src/div.c -o build/div.o
+	@$(GCC) $(CFLAGS) -c  src/helpers.c -o build/help.o
 
 dvi: 
 	mkdir -p docs
@@ -40,6 +40,6 @@ build_dir:
 
 # Правило clean для удаления созданных файлов
 clean:
-	rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME) bin docs
+	@rm -rf $(BUILD_DIR) $(LIB_DIR)/$(LIB_NAME) bin docs
 
 .PHONY: all clean build_dir

@@ -10,7 +10,7 @@ GCC = gcc
 CFLAGS = -std=c11 -Wall -Werror -Wextra -Wpedantic
 NCURSES = -lncurses
 
-all: lib
+mc: lib
 
 lib: build_dir
 	$(GCC) $(CFLAGS) -c $(SRC_DIR)/mc.c -o $(BUILD_DIR)/mc.o 

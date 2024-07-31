@@ -21,7 +21,6 @@ lib: build_dir
 	$(GCC) $(BUILD_DIR)/mc.o $(BUILD_DIR)/front.o $(BUILD_DIR)/back.o $(BUILD_DIR)/plugin.o -o $(BIN_DIR)/$(PROGRAMM_NAME) $(NCURSES)
 
 color_plugin:
-	pwd
 	$(GCC) $(CFLAGS) -shared -o mc/plugins/color_plugin.so  -fPIC mc/plugins/color_plugin.c
 
 

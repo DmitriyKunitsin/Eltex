@@ -44,3 +44,20 @@ void printTwoDir(Panel *panel, Panel *panelDouble) {
   }
   refresh();
 }
+
+void print_file(FILE *file) {
+  clear();
+  char ch;
+  int i = 0;
+  int j = 0;
+  while ((ch = fgetc(file)) != EOF) {
+    if ('\n' == ch) {
+      i++;
+      j = 0;
+    } else {
+      mvprintw(i, j++, "%c", ch);
+    }
+  }
+  mvprintw(i++, 0, "%s", "Q - for exit");
+  refresh();
+}

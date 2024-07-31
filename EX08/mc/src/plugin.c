@@ -14,7 +14,7 @@ void init_ncurses_plugins(
   *handle = dlopen("mc/plugins/color_plugin.so", RTLD_LAZY);
   if (!*handle) {
     fprintf(stderr, "%s\n", dlerror());
-    endwin();  // Освобождение ресурсов ncurses
+    endwin();
     exit(1);
   }
 
@@ -36,7 +36,6 @@ void init_ncurses_plugins(
 
 void off_color_sheme(void *handle) {
   attroff(COLOR_PAIR(1));
-  // Завершение работы ncurses
   getch();
   endwin();
 

@@ -11,14 +11,19 @@ GCC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Wpedantic
 NCURSES = -lncurses
 
-mc: lib color_plugin $(BIN_DIR)/$(PROGRAMM_NAME)
+mc: install color_plugin
+	$(BIN_DIR)/$(PROGRAMM_NAME)
+
+install : lib
+	$(GCC) $(CFLAGS) $(SRC_DIR)/mc.c $(BUILD_DIR)/mc.a -o $(BIN_DIR)/mc -lncurses
+
 
 lib: build_dir
-	$(GCC) $(CFLAGS) -c $(SRC_DIR)/mc.c -o $(BUILD_DIR)/mc.o 
 	$(GCC) $(CFLAGS) -c $(SRC_DIR)/front.c -o $(BUILD_DIR)/front.o
 	$(GCC) $(CFLAGS) -c $(SRC_DIR)/back.c -o $(BUILD_DIR)/back.o
 	$(GCC) $(CFLAGS) -c $(SRC_DIR)/plugin.c -o $(BUILD_DIR)/plugin.o
-	$(GCC) $(BUILD_DIR)/mc.o $(BUILD_DIR)/front.o $(BUILD_DIR)/back.o $(BUILD_DIR)/plugin.o -o $(BIN_DIR)/$(PROGRAMM_NAME) $(NCURSES)
+	ar rc $(BUILD_DIR)/mc.a $(BUILD_DIR)/*.o
+	rm -rf $(BUILD_DIR)/*.o
 
 color_plugin:
 	$(GCC) $(CFLAGS) -shared -o mc/plugins/color_plugin.so  -fPIC mc/plugins/color_plugin.c

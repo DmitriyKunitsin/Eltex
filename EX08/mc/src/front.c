@@ -26,8 +26,7 @@ void printTwoDir(Panel *panel, Panel *panelDouble) {
     if (panel->selected == i) {
       attron(A_REVERSE);
     }
-    mvprintw(i + 3, 1, "%s",
-             panel->files[i]);
+    mvprintw(i + 3, 1, "%s", panel->files[i]);
     if (i == panel->selected) {
       attroff(A_REVERSE);
     }
@@ -35,12 +34,11 @@ void printTwoDir(Panel *panel, Panel *panelDouble) {
 
   // вторая панель данными
   for (int i = 0; i < panelDouble->count; ++i) {
-     if (panelDouble->selected == i) {
+    if (panelDouble->selected == i) {
       attron(A_REVERSE);
     }
-    mvprintw(i + 3, panelWidth + 1, "%s",
-             panelDouble->files[i]);
-             if (i == panelDouble->selected) {
+    mvprintw(i + 3, panelWidth + 1, "%s", panelDouble->files[i]);
+    if (i == panelDouble->selected) {
       attroff(A_REVERSE);
     }
   }

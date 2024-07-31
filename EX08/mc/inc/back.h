@@ -35,6 +35,17 @@ void navigate_panel(Panel *panel, int dirrection);
  * @brief Смена выбранной панели
  */
 void switch_panel(int *selected_panel);
-
+/**
+ * @brief Меняет директорию в зависимости от выбора пользователя
+ */
 void change_directory(Panel *panel);
+/**
+ * @brief Чтение файла и вывод его на экран
+ */
+void read_file(const char *selectected_file);
+/**
+ * @brief Читать или менять директорию
+ * Функция понимает, что перед ней, дирректория или файл для чтения
+ */
+void read_or_change(Panel *panel);
 #endif

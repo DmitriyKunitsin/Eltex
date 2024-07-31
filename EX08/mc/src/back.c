@@ -57,10 +57,49 @@ void change_directory(Panel *panel) {
   char *new_path = (char *)calloc((path_len + file_len), sizeof(char));
 
   // новый путь
-  snprintf(new_path, sizeof(new_path), "%s/%s", panel->path, panel->files[panel->selected]);
-  if (strcmp(panel->files[panel->selected], ".") != 0 && strcmp(panel->files[panel->selected], "..") != 0) {
-        free_panel(panel);
-        init_panel(panel, new_path);
+  snprintf(new_path, sizeof(new_path), "%s/%s", panel->path,
+           panel->files[panel->selected]);
+  if (strcmp(panel->files[panel->selected], ".") != 0 &&
+      strcmp(panel->files[panel->selected], "..") != 0) {
+    free_panel(panel);
+    init_panel(panel, new_path);
+  }
+  free(new_path);
+}
+
+void read_file(const char *selectected_file) {
+  FILE *file = fopen(selectected_file, "r");
+  if (NULL == file) {
+    return;
+  }
+  clear();
+  char ch;
+  int i = 0;
+  int j = 0;
+  while ((ch = fgetc(file)) != EOF) {
+    if ('\n' == ch) {
+      i++;
+      j = 0;
+    } else {
+      mvprintw(i, j++, "%c", ch);
     }
-    free(new_path);
+  }
+  mvprintw(i++, 0, "%s", "Q - for exit");
+  refresh();
+  char ext = '\0';
+  while (ext != 'q') {
+    ext = getch();
+  }
+  fclose(file);
+  clear();
+}
+
+void read_or_change(Panel *panel) {
+  DIR *dir = opendir(panel->files[panel->selected]);
+  if (NULL == dir) {
+    read_file(panel->files[panel->selected]);
+  } else {
+    change_directory(panel);
+    closedir(dir);
+  }
 }

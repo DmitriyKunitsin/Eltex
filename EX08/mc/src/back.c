@@ -23,7 +23,6 @@ void init_panel(Panel *panel, const char *path) {
     lenght = strlen(entry->d_name);
     panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
     strcpy(panel->files[panel->count], entry->d_name);
-    // panel->files[panel->count] = strdup(entry->d_name);
     panel->count++;
   }
   closedir(dir);
@@ -52,3 +51,16 @@ void navigate_panel(Panel *panel, int dirrection) {
   }
 }
 void switch_panel(int *selected_panel) { *selected_panel = !*selected_panel; }
+void change_directory(Panel *panel) {
+  int path_len = strlen(panel->path);
+  int file_len = strlen(panel->files[panel->selected]);
+  char *new_path = (char *)calloc((path_len + file_len), sizeof(char));
+
+  // новый путь
+  snprintf(new_path, sizeof(new_path), "%s/%s", panel->path, panel->files[panel->selected]);
+  if (strcmp(panel->files[panel->selected], ".") != 0 && strcmp(panel->files[panel->selected], "..") != 0) {
+        free_panel(panel);
+        init_panel(panel, new_path);
+    }
+    free(new_path);
+}

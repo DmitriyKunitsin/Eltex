@@ -35,7 +35,7 @@ int main() {
                             : navigate_panel(panel_second, 1);
         break;
       case '\n':
-        /// TODO : выбор, действие
+        selected_panel == 0 ? change_directory(panel_one) : change_directory(panel_second);
         break;
       case '\t':
         switch_panel(&selected_panel);

@@ -35,4 +35,6 @@ void navigate_panel(Panel *panel, int dirrection);
  * @brief Смена выбранной панели
  */
 void switch_panel(int *selected_panel);
+
+void change_directory(Panel *panel);
 #endif

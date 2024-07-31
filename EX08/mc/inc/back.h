@@ -27,5 +27,12 @@ void init_panel(Panel *panel, const char *path);
  * @brief Очищение памяти, выделенной для панели
  */
 void free_panel(Panel *panel);
-
+/**
+ * @brief Смещает выбранную панель
+ */
+void navigate_panel(Panel *panel, int dirrection);
+/**
+ * @brief Смена выбранной панели
+ */
+void switch_panel(int *selected_panel);
 #endif

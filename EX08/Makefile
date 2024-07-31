@@ -37,6 +37,13 @@ dvi:
 	doxygen
 	open docs/html/index.html
 
+format : check
+	clang-format --style=file:.clang-format -i mc/src/*.c mc/*/*.c
+
+check :
+	@clang-format --style=file:.clang-format -n mc/src/*.c mc/*/*.c
+
+
 clean:
 	rm -rf $(BIN_DIR)
 	rm -rf $(BUILD_DIR)

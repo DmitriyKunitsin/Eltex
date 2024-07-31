@@ -1,7 +1,6 @@
 #include "../inc/mc.h"
 
 int main() {
-
   //   initscr(); /// Инициализация ncrses
   //   noecho();  /// Отключить ввод в командную строку
   //   keypad(stdscr, TRUE); /// Включить специальные клавиши
@@ -11,40 +10,36 @@ int main() {
 
   init_ncurses_plugins(&handle, &apply_color_scheme);
   // Инициализация панелей
-  Panel *panel_one = malloc(sizeof(Panel)); // Выделяем память для panel_one
+  Panel *panel_one = malloc(sizeof(Panel));  // Выделяем память для panel_one
   Panel *panel_second =
-      malloc(sizeof(Panel)); // Выделяем память для panel_second
+      malloc(sizeof(Panel));  // Выделяем память для panel_second
   if (panel_one == NULL || panel_second == NULL) {
     perror("Failed to allocate memory for panels");
     endwin();
-    return 1; // Завершаем программу при ошибке выделения памяти
+    return 1;  // Завершаем программу при ошибке выделения памяти
   }
   init_panel(panel_one, ".");
   init_panel(panel_second, ".");
-  printTwoDir(panel_one, panel_second);
-
+  int selected_panel = 0;
   int ch = 'W';
   while (ch != 'q') {
+  printTwoDir(panel_one, panel_second);
     ch = getch();
     switch (ch) {
-    case KEY_UP:
-      /// TODO : выделить вверх
-      //   clear();
-      mvprintw(10, 10, "HELLO WORLD KEY_UP");
-
-      break;
-    case KEY_DOWN:
-      /// TODO : выделить вниз
-      mvprintw(10, 10, "BAY WORLD KEY_DOWN");
-
-      break;
-    case '\n':
-      /// TODO : выбор, действие
-      break;
-    case '\t':
-      /// TODO : TAB
-
-      break;
+      case KEY_UP:
+        selected_panel == 0 ? navigate_panel(panel_one, -1)
+                            : navigate_panel(panel_second, -1);
+        break;
+      case KEY_DOWN:
+        selected_panel == 0 ? navigate_panel(panel_one, 1)
+                            : navigate_panel(panel_second, 1);
+        break;
+      case '\n':
+        /// TODO : выбор, действие
+        break;
+      case '\t':
+        switch_panel(&selected_panel);
+        break;
     }
     refresh();
   }

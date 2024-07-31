@@ -17,5 +17,4 @@
  * @brief Отрисовка двух панелей с дирректориями на экран
  */
 void printTwoDir(Panel *panel, Panel *panelDouble);
-
 #endif

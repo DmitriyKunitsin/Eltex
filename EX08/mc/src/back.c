@@ -1,11 +1,10 @@
 #include "../inc/back.h"
 
 void init_panel(Panel *panel, const char *path) {
-
   int lenght = strlen(path);
   panel->path = (char *)calloc(lenght + 1, sizeof(char));
   strncpy(panel->path, path, lenght);
-  panel->path[lenght] = '\0'; // Добавляю завершающий нулевой символ
+  panel->path[lenght] = '\0';  // Добавляю завершающий нулевой символ
   panel->count = 0;
   panel->selected = 0;
 
@@ -43,3 +42,13 @@ void free_panel(Panel *panel) {
   free(panel->files);
   free(panel);
 }
+
+void navigate_panel(Panel *panel, int dirrection) {
+  panel->selected += dirrection;
+  if (panel->selected < 0) {
+    panel->selected = 0;
+  } else if (panel->selected >= panel->count) {
+    panel->selected = panel->count - 1;
+  }
+}
+void switch_panel(int *selected_panel) { *selected_panel = !*selected_panel; }

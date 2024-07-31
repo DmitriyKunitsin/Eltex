@@ -1,6 +1,5 @@
 #include "../inc/back.h"
 
-
 void init_panel(Panel *panel, const char *path) {
 
   int lenght = strlen(path);
@@ -23,7 +22,7 @@ void init_panel(Panel *panel, const char *path) {
       count_files = resize_panel(panel, count_files);
     }
     lenght = strlen(entry->d_name);
-    panel->files[panel->count] = (char *)calloc(lenght + 1 , sizeof(char));
+    panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
     strcpy(panel->files[panel->count], entry->d_name);
     // panel->files[panel->count] = strdup(entry->d_name);
     panel->count++;

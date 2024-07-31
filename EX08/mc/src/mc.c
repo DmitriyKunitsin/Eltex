@@ -51,6 +51,6 @@ int main() {
   free_panel(panel_one);
   free_panel(panel_second);
   off_color_sheme(handle);
-  endwin();
+//   endwin();
   return 0;
 }

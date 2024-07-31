@@ -13,7 +13,7 @@ void init_ncurses_plugins(
   *handle = dlopen("mc/plugins/color_plugin.so", RTLD_LAZY);
   if (!*handle) {
     fprintf(stderr, "%s\n", dlerror());
-        endwin(); // Освобождение ресурсов ncurses
+    endwin(); // Освобождение ресурсов ncurses
     exit(1);
   }
 
@@ -23,7 +23,7 @@ void init_ncurses_plugins(
   if (error != NULL) {
     fprintf(stderr, "%s\n", error);
     dlclose(*handle); // Освобождение библиотеки перед выходом
-        endwin(); // Освобождение ресурсов ncurses
+    endwin(); // Освобождение ресурсов ncurses
     exit(1);
   }
 

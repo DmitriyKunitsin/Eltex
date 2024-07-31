@@ -21,6 +21,7 @@ int main() {
   }
   init_panel(panel_one, ".");
   init_panel(panel_second, ".");
+  printTwoDir(panel_one, panel_second);
 
   int ch = 'W';
   while (ch != 'q') {
@@ -28,14 +29,13 @@ int main() {
     switch (ch) {
     case KEY_UP:
       /// TODO : выделить вверх
-      clear();
+      //   clear();
       mvprintw(10, 10, "HELLO WORLD KEY_UP");
 
       break;
     case KEY_DOWN:
       /// TODO : выделить вниз
-      // mvprintw(10, 10, "BAY WORLD KEY_DOWN");
-      printTwoDir(panel_one, panel_second);
+      mvprintw(10, 10, "BAY WORLD KEY_DOWN");
 
       break;
     case '\n':
@@ -43,7 +43,7 @@ int main() {
       break;
     case '\t':
       /// TODO : TAB
-      
+
       break;
     }
     refresh();
@@ -52,6 +52,6 @@ int main() {
   free_panel(panel_one);
   free_panel(panel_second);
   off_color_sheme(handle);
-//   endwin();
+  //   endwin();
   return 0;
 }

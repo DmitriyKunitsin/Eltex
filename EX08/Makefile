@@ -32,8 +32,13 @@ build_dir:
 valgrind-mc:
 	valgrind --leak-check=full --show-leak-kinds=all ./bin/mc     
 
+dvi:
+	mkdir -p docs
+	doxygen
+	open docs/html/index.html
 
 clean:
 	rm -rf $(BIN_DIR)
 	rm -rf $(BUILD_DIR)
 	rm -rf mc/plugins/color_plugin.so
+	rm -rf docs

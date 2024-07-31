@@ -1,6 +1,9 @@
 #ifndef PLUGIN_H_
 #define PLUGIN_H_
-
+/**
+ * @file plugin.h
+ * @brief Модуль для подключения плагинов к файловому менеджеру
+ */
 #include "mc.h"
 #include <dlfcn.h>
 

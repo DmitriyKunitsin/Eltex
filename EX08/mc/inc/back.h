@@ -1,6 +1,9 @@
 #ifndef BACK_H_
 #define BACK_H_
-
+/**
+ * @file back.h
+ * @brief Модуль реализации всей внутренеей логики программы
+ */
 #include "mc.h"
 #include "../inc/panel.h"
 

@@ -14,11 +14,17 @@ mc: lib
 
 lib: build_dir
 	$(GCC) $(CFLAGS) -c $(SRC_DIR)/mc.c -o $(BUILD_DIR)/mc.o 
-	$(GCC) $(BUILD_DIR)/mc.o -o $(BIN_DIR)/$(PROGRAMM_NAME) $(NCURSES)
+	$(GCC) $(CFLAGS) -c $(SRC_DIR)/front.c -o $(BUILD_DIR)/front.o
+	$(GCC) $(CFLAGS) -c $(SRC_DIR)/back.c -o $(BUILD_DIR)/back.o
+	$(GCC) $(BUILD_DIR)/mc.o $(BUILD_DIR)/front.o $(BUILD_DIR)/back.o -o $(BIN_DIR)/$(PROGRAMM_NAME) $(NCURSES)
 
 build_dir:
 	mkdir -p $(BUILD_DIR)
 	mkdir -p $(BIN_DIR)
+
+valgrind-mc:
+	valgrind --leak-check=full ./bin/mc     
+
 
 clean:
 	rm -rf $(BIN_DIR)

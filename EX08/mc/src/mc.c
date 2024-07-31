@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ncurses.h>
-
-#define MAX_FILES 100
-#define MAX_PATH 1024
+#include "../inc/mc.h"
 
 
 int main() {
@@ -12,6 +6,17 @@ int main() {
     noecho(); /// Отключить ввод в командную строку
     keypad(stdscr, TRUE); /// Включить специальные клавиши
     curs_set(0); /// спрятать курсор
+
+   // Инициализация панелей
+    Panel *panel_one = malloc(sizeof(Panel)); // Выделяем память для panel_one
+    Panel *panel_second = malloc(sizeof(Panel)); // Выделяем память для panel_second
+    if (panel_one == NULL || panel_second == NULL) {
+        perror("Failed to allocate memory for panels");
+        endwin();
+        return 1; // Завершаем программу при ошибке выделения памяти
+    }
+    init_panel(panel_one, ".");
+    init_panel(panel_second, ".");
 
     int ch = 'W';
     while (ch != 'q')
@@ -27,9 +32,9 @@ int main() {
             break;
         case KEY_DOWN:
             /// TODO : выделить вниз
-            clear();
-            mvprintw(10,10, "BAY WORLD KEY_DOWN");
-
+            // mvprintw(10, 10, "BAY WORLD KEY_DOWN");
+            printTwoDir(panel_one, panel_second);
+               
             break;
         case '\n':
             /// TODO : выбор, действие
@@ -41,7 +46,8 @@ int main() {
         refresh();
     }
     
-
+    free_panel(panel_one);
+    free_panel(panel_second);
     endwin();
     return 0;
 }

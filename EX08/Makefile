@@ -11,6 +11,10 @@ GCC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Wpedantic
 NCURSES = -lncurses
 
+debug: install color_plugin
+	$(GCC) $(CFLAGS) $(SRC_DIR)/mc.c $(BUILD_DIR)/mc.a -g -o $(BIN_DIR)/mc -lncurses
+
+
 mc: install color_plugin
 	$(BIN_DIR)/$(PROGRAMM_NAME)
 

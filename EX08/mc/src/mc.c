@@ -7,7 +7,7 @@ int main() {
   Panel *panel_one = malloc(sizeof(Panel));
   Panel *panel_second = malloc(sizeof(Panel));
   if (panel_one == NULL || panel_second == NULL) {
-    perror("Failed to allocate memory for panels");
+    perror("Не удалось выделить память для панелей");
     endwin();
     return 1;
   }

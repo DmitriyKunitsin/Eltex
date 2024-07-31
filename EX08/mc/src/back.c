@@ -17,13 +17,16 @@ void init_panel(Panel *panel, const char *path) {
   int count_files = 1024;
   panel->files = (char **)calloc(count_files + 1, sizeof(char *));
   while ((entry = readdir(dir)) != NULL) {
-    if (count_files <= panel->count) {
-      count_files = resize_panel(panel, count_files);
+    if (strcmp(entry->d_name, ".") != 0 &&
+        strcmp(entry->d_name, "..") != 0) {
+      if (count_files <= panel->count) {
+        count_files = resize_panel(panel, count_files);
+      }
+      lenght = strlen(entry->d_name);
+      panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
+      strcpy(panel->files[panel->count], entry->d_name);
+      panel->count++;
     }
-    lenght = strlen(entry->d_name);
-    panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
-    strcpy(panel->files[panel->count], entry->d_name);
-    panel->count++;
   }
   closedir(dir);
 }
@@ -34,11 +37,15 @@ int resize_panel(Panel *panel, int count_files) {
 }
 
 void free_panel(Panel *panel) {
-  for (int i = 0; i < panel->count; ++i) {
-    free(panel->files[i]);
+  if (panel->files) {
+    for (int i = 0; i < panel->count; ++i) {
+      free(panel->files[i]);
+    }
+    free(panel->files);
   }
-  free(panel->path);
-  free(panel->files);
+  if (panel->path) {
+    free(panel->path);
+  }
   free(panel);
 }
 
@@ -57,7 +64,7 @@ void change_directory(Panel *panel) {
   char *new_path = (char *)calloc((path_len + file_len), sizeof(char));
 
   // новый путь
-  snprintf(new_path, sizeof(new_path), "%s/%s", panel->path,
+  snprintf(new_path, path_len + file_len + 2, "%s/%s", panel->path,
            panel->files[panel->selected]);
   if (strcmp(panel->files[panel->selected], ".") != 0 &&
       strcmp(panel->files[panel->selected], "..") != 0) {

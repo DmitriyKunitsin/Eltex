@@ -9,7 +9,7 @@ void init_panel(Panel *panel, const char *path) {
   panel->count = 0;
   panel->selected = 0;
 
-  DIR *dir = opendir(getenv("HOME"));
+  DIR *dir = opendir(path);
   if (dir == NULL) {
     perror("opendir");
     return;

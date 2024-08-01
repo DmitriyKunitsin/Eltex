@@ -117,6 +117,10 @@ void read_or_change(Panel *panel) {
       int path_len = strlen(panel->path);
       int file_len = strlen(panel->files[panel->selected]);
       char *full_path = (char *)calloc((path_len + file_len) + 1, sizeof(char));
+      if (full_path == NULL) {
+        // Обработка ошибки выделения памяти
+        return;
+      }
       snprintf(full_path, path_len + file_len + 2, "%s/%s", panel->path,
                panel->files[panel->selected]);
       DIR *dir = opendir(full_path);

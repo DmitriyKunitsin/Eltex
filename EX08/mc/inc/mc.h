@@ -10,6 +10,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <ncurses.h>
+#include <unistd.h>
 
 #include "plugin.h"
 #include "back.h"

@@ -52,4 +52,8 @@ void read_or_change(Panel *panel);
  * @brief возвращает в предыдущую директорию
  */
 void back_directiry(Panel *panel);
+/**
+ * @brief возвращает путь от корневой папки до текущей
+ */
+char* get_root_path();
 #endif

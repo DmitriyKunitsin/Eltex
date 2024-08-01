@@ -88,7 +88,7 @@ void back_directiry(Panel *panel) {
     int back_path_len = last_slash - panel->path;  // Длина нового пути
     char *back_path = (char *)calloc(back_path_len + 1, sizeof(char));
     strncpy(back_path, panel->path, back_path_len);
-    back_path[back_path_len] = '\0';
+    back_path[path_len] = '\0';
 
     free_panel(panel);
     init_panel(panel, back_path);
@@ -129,4 +129,14 @@ void read_or_change(Panel *panel) {
       free(full_path);
     }
   }
+}
+
+char *get_root_path() {
+  // Возвращаем строку с путем к корневой директории
+  char *root_path = malloc(100);  // Длина "/" + '\\0'
+  getcwd(root_path, 100);
+  // if (root_path != NULL) {
+  //     strcpy(root_path, ".");
+  // }
+  return root_path;
 }

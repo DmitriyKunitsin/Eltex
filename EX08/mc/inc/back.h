@@ -48,4 +48,8 @@ void read_file(const char *selectected_file);
  * Функция понимает, что перед ней, дирректория или файл для чтения
  */
 void read_or_change(Panel *panel);
+/**
+ * @brief возвращает в предыдущую директорию
+ */
+void back_directiry(Panel *panel);
 #endif

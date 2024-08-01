@@ -80,7 +80,22 @@ void change_directory(Panel *panel) {
   free(new_path);
 }
 
-void back_directiry(Panel *panel) {}
+void back_directiry(Panel *panel) {
+  int path_len = strlen(panel->path);
+  // последний символ '/' в пути
+  char *last_slash = strrchr(panel->path, '/');
+  if (last_slash != NULL && last_slash != panel->path) {
+    int back_path_len = last_slash - panel->path;  // Длина нового пути
+    char *back_path = (char *)calloc(back_path_len + 1, sizeof(char));
+    strncpy(back_path, panel->path, back_path_len);
+    back_path[back_path_len] = '\0';
+
+    free_panel(panel);
+    init_panel(panel, back_path);
+
+    free(back_path);
+  }
+}
 void read_file(const char *selectected_file) {
   FILE *file = fopen(selectected_file, "r");
   if (NULL == file) {
@@ -97,22 +112,7 @@ void read_file(const char *selectected_file) {
 void read_or_change(Panel *panel) {
   if (panel->count > 0) {
     if (0 == panel->selected) {  // выбрана кнопка назад
-      int path_len = strlen(panel->path);
-
-      // Находим последний символ '/' в пути
-      char *last_slash = strrchr(panel->path, '/');
-      if (last_slash != NULL && last_slash != panel->path) {
-        // Создаем новый путь к родительской директории
-        int back_path_len = last_slash - panel->path;  // Длина нового пути
-        char *back_path = (char *)calloc(back_path_len + 1, sizeof(char));
-        strncpy(back_path, panel->path, back_path_len);
-        back_path[back_path_len] = '\0';  // Завершаем строку
-
-        free_panel(panel);  // Освобождаем ресурсы текущей панели
-        init_panel(panel, back_path);  // Инициализируем панель с новым путем
-
-        free(back_path);  // Освобождаем память для back_path
-      }
+      back_directiry(panel);
     } else {
       int path_len = strlen(panel->path);
       int file_len = strlen(panel->files[panel->selected]);

@@ -23,9 +23,9 @@ install : lib
 
 
 lib: build_dir
-	$(GCC) $(CFLAGS) -c $(SRC_DIR)/front.c -o $(BUILD_DIR)/front.o
-	$(GCC) $(CFLAGS) -c $(SRC_DIR)/back.c -o $(BUILD_DIR)/back.o
-	$(GCC) $(CFLAGS) -c $(SRC_DIR)/plugin.c -o $(BUILD_DIR)/plugin.o
+	$(GCC) $(CFLAGS) -c $(SRC_DIR)/front.c -g -o $(BUILD_DIR)/front.o
+	$(GCC) $(CFLAGS) -c $(SRC_DIR)/back.c -g -o $(BUILD_DIR)/back.o
+	$(GCC) $(CFLAGS) -c $(SRC_DIR)/plugin.c -g -o $(BUILD_DIR)/plugin.o
 	ar rc $(BUILD_DIR)/mc.a $(BUILD_DIR)/*.o
 	rm -rf $(BUILD_DIR)/*.o
 

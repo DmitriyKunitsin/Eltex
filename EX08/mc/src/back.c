@@ -1,6 +1,11 @@
 #include "../inc/back.h"
 
 void init_panel(Panel *panel, const char *path) {
+  DIR *dir = opendir(path);
+  if (dir == NULL) {
+    perror("opendir");
+    return;
+  }
   int lenght = strlen(path);
   panel->path = (char *)calloc(lenght + 1, sizeof(char));
   strncpy(panel->path, path, lenght);
@@ -8,17 +13,14 @@ void init_panel(Panel *panel, const char *path) {
   panel->count = 0;
   panel->selected = 0;
 
-  DIR *dir = opendir(path);
-  if (dir == NULL) {
-    perror("opendir");
-    return;
-  }
   struct dirent *entry;
   int count_files = 1024;
-  panel->files = (char **)calloc(count_files + 1, sizeof(char *));
+  panel->files = (char **)calloc(count_files, sizeof(char *));
+  lenght = strlen("...");
+  panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
+  strcpy(panel->files[panel->count++], "...");// TODO кнопка для перехода назад
   while ((entry = readdir(dir)) != NULL) {
-    if (strcmp(entry->d_name, ".") != 0 &&
-        strcmp(entry->d_name, "..") != 0) {
+    if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
       if (count_files <= panel->count) {
         count_files = resize_panel(panel, count_files);
       }
@@ -37,12 +39,12 @@ int resize_panel(Panel *panel, int count_files) {
 }
 
 void free_panel(Panel *panel) {
-  if (panel->files) {
-    for (int i = 0; i < panel->count; ++i) {
-      free(panel->files[i]);
+    if (panel->files) {
+      for (int i = 0; i < panel->count; ++i) {
+        free(panel->files[i]);
+      }
+      free(panel->files);
     }
-    free(panel->files);
-  }
   if (panel->path) {
     free(panel->path);
   }
@@ -89,11 +91,13 @@ void read_file(const char *selectected_file) {
 }
 
 void read_or_change(Panel *panel) {
-  DIR *dir = opendir(panel->files[panel->selected]);
-  if (NULL == dir) {
-    read_file(panel->files[panel->selected]);
-  } else {
-    change_directory(panel);
-    closedir(dir);
+  if (panel->count > 0) {
+    DIR *dir = opendir(panel->files[panel->selected]);
+    if (NULL == dir) {
+      read_file(panel->files[panel->selected]);
+    } else {
+      closedir(dir);
+      change_directory(panel);
+    }
   }
 }

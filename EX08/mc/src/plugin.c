@@ -33,7 +33,6 @@ void init_ncurses_plugins(
     (*apply_color_scheme)();
   }
 }
-
 void off_color_sheme(void *handle) {
   attroff(COLOR_PAIR(1));
   getch();

@@ -2,6 +2,8 @@ SRC_DIR = mc/src
 INC_DIR = mc/inc
 PLUGINS_DIR = plugins
 
+STRING_DIR = string
+
 BUILD_DIR = build
 BIN_DIR = bin
 
@@ -11,9 +13,13 @@ GCC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Wpedantic
 NCURSES = -lncurses
 
+string: build_dir
+	$(GCC) $(CFLAGS) -c $(STRING_DIR)/string.c -o $(BUILD_DIR)/string.o
+	$(GCC) $(BUILD_DIR)/string.o -o $(BIN_DIR)/string
+	$(BIN_DIR)/string
+
 debug: install color_plugin
 	$(GCC) $(CFLAGS) $(SRC_DIR)/mc.c $(BUILD_DIR)/mc.a -g -o $(BIN_DIR)/mc -lncurses
-
 
 mc: install color_plugin
 	$(BIN_DIR)/$(PROGRAMM_NAME)
@@ -40,6 +46,9 @@ build_dir:
 
 valgrind-mc:
 	valgrind --leak-check=full --show-leak-kinds=all ./bin/mc     
+
+valgrind-string:
+	valgrind --leak-check=full --show-leak-kinds=all ./bin/string
 
 dvi:
 	mkdir -p docs

@@ -57,12 +57,12 @@ char *read_file() {
         if (i >= size - 1) { // Проверка на переполнение
             size = realloc_string(string, &size);
             if (size == 0) {
-                free(string); // Освобождаем память в случае ошибки
+                free(string);
                 fclose(file);
-                return NULL; // Возвращаем NULL в случае ошибки
+                return NULL;
             }
         }
-        string[i++] = ch; // Записываем символ в строку
+        string[i++] = ch;
     }
     
     string[i] = '\0';

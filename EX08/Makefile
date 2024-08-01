@@ -32,6 +32,7 @@ lib: build_dir
 color_plugin:
 	$(GCC) $(CFLAGS) -shared -o mc/plugins/color_plugin.so  -fPIC mc/plugins/color_plugin.c
 
+rebuild: clean mc
 
 build_dir:
 	mkdir -p $(BUILD_DIR)

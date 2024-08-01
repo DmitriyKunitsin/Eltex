@@ -16,16 +16,25 @@ void init_panel(Panel *panel, const char *path) {
   struct dirent *entry;
   int count_files = 1024;
   panel->files = (char **)calloc(count_files, sizeof(char *));
+  if (panel->files == NULL) {
+    perror("calloc");
+    return;
+  }
   lenght = strlen("...");
   panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
-  strcpy(panel->files[panel->count++], "...");// TODO кнопка для перехода назад
+  strcpy(panel->files[panel->count++],
+         "...");  // TODO кнопка для перехода назад
   while ((entry = readdir(dir)) != NULL) {
     if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
       if (count_files <= panel->count) {
         count_files = resize_panel(panel, count_files);
       }
       lenght = strlen(entry->d_name);
-      panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));
+      panel->files[panel->count] = (char *)calloc(lenght + 1, sizeof(char));  
+      if (panel->files[panel->count] == NULL) {
+        perror("calloc = panel->files[panel->count] ");
+        return;
+      }
       strcpy(panel->files[panel->count], entry->d_name);
       panel->count++;
     }
@@ -34,21 +43,24 @@ void init_panel(Panel *panel, const char *path) {
 }
 int resize_panel(Panel *panel, int count_files) {
   count_files = 2 * count_files;
-  panel->files = realloc(panel->files, sizeof(char *) * count_files);
+  char **temp = realloc(panel->files, sizeof(char *) * count_files);
+  if (temp == NULL) {
+    return panel->count;
+  }
+  panel->files = temp;
   return count_files;
 }
 
 void free_panel(Panel *panel) {
-    if (panel->files) {
-      for (int i = 0; i < panel->count; ++i) {
-        free(panel->files[i]);
+  if (panel != NULL) {
+    if (panel->files != NULL) {
+      for (int i = 0; i < panel->count; i++) {
+        free(panel->files[i]);  // Освобождаем каждую строку
       }
-      free(panel->files);
+      free(panel->files);  // Освобождаем массив указателей
     }
-  if (panel->path) {
-    free(panel->path);
+    free(panel->path);  // Освобождаем путь
   }
-  free(panel);
 }
 
 void navigate_panel(Panel *panel, int dirrection) {

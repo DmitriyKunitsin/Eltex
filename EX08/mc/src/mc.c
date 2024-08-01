@@ -38,9 +38,12 @@ int main() {
     }
     refresh();
   }
-
-  free_panel(panel_one);
+  if (panel_one != NULL) {
+    free_panel(panel_one);
+  }
   free_panel(panel_second);
+  free(panel_one);
+  free(panel_second);
   off_color_sheme(handle);
   return 0;
 }

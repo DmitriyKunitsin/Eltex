@@ -132,11 +132,15 @@ void read_or_change(Panel *panel) {
 }
 
 char *get_root_path() {
-  // Возвращаем строку с путем к корневой директории
-  char *root_path = malloc(100);  // Длина "/" + '\\0'
-  getcwd(root_path, 100);
-  // if (root_path != NULL) {
-  //     strcpy(root_path, ".");
-  // }
+  char *root_path = malloc(100);
+  if (root_path == NULL) {
+    perror("Не удалось выделить память");
+    return NULL;
+  }
+  if (getcwd(root_path, 100) == NULL) {
+    perror("Не удалось получить текущую директорию");
+    free(root_path);
+    return NULL;
+  }
   return root_path;
 }

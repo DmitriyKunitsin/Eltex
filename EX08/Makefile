@@ -67,3 +67,4 @@ clean:
 	rm -rf $(BUILD_DIR)
 	rm -rf mc/plugins/color_plugin.so
 	rm -rf docs
+	rm -rf *.txt

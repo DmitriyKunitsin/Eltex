@@ -24,7 +24,7 @@ void init_ncurses_plugins(
   if (error != NULL) {
     fprintf(stderr, "%s\n", error);
     dlclose(*handle);  // Освобождение библиотеки перед выходом
-    endwin();  // Освобождение ресурсов ncurses
+    endwin();
     exit(1);
   }
 

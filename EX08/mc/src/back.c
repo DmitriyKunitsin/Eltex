@@ -1,18 +1,18 @@
 #include "../inc/back.h"
 
 void init_panel(Panel *panel, const char *path) {
-  DIR *dir = opendir(path);
-  if (dir == NULL) {
-    perror("opendir");
-    return;
-  }
   int lenght = strlen(path);
   panel->path = (char *)calloc(lenght + 1, sizeof(char));
-  strncpy(panel->path, path, lenght);
+  strcpy(panel->path, path);
   panel->path[lenght] = '\0';  // Добавляю завершающий нулевой символ
   panel->count = 0;
   panel->selected = 0;
 
+  DIR *dir = opendir(panel->path);
+  if (dir == NULL) {
+    perror("opendir");
+    return;
+  }
   struct dirent *entry;
   int count_files = 1024;
   panel->files = (char **)calloc(count_files, sizeof(char *));
@@ -67,7 +67,8 @@ void switch_panel(int *selected_panel) { *selected_panel = !*selected_panel; }
 void change_directory(Panel *panel) {
   int path_len = strlen(panel->path);
   int file_len = strlen(panel->files[panel->selected]);
-  char *new_path = (char *)calloc((path_len + file_len), sizeof(char));
+  int size_full_path = path_len + file_len;
+  char new_path[size_full_path + 1];
 
   // новый путь
   snprintf(new_path, path_len + file_len + 2, "%s/%s", panel->path,
@@ -77,7 +78,6 @@ void change_directory(Panel *panel) {
     free_panel(panel);
     init_panel(panel, new_path);
   }
-  free(new_path);
 }
 
 void back_directiry(Panel *panel) {
@@ -86,14 +86,12 @@ void back_directiry(Panel *panel) {
   char *last_slash = strrchr(panel->path, '/');
   if (last_slash != NULL && last_slash != panel->path) {
     int back_path_len = last_slash - panel->path;  // Длина нового пути
-    char *back_path = (char *)calloc(back_path_len + 1, sizeof(char));
+    char back_path[back_path_len];
     strncpy(back_path, panel->path, back_path_len);
-    back_path[path_len] = '\0';
+    back_path[back_path_len] = '\0';
 
     free_panel(panel);
     init_panel(panel, back_path);
-
-    free(back_path);
   }
 }
 void read_file(const char *selectected_file) {
@@ -116,11 +114,9 @@ void read_or_change(Panel *panel) {
     } else {
       int path_len = strlen(panel->path);
       int file_len = strlen(panel->files[panel->selected]);
-      char *full_path = (char *)calloc((path_len + file_len) + 1, sizeof(char));
-      if (full_path == NULL) {
-        // Обработка ошибки выделения памяти
-        return;
-      }
+      int size_full_path = path_len + file_len;
+      char full_path[size_full_path + 1];
+
       snprintf(full_path, path_len + file_len + 2, "%s/%s", panel->path,
                panel->files[panel->selected]);
       DIR *dir = opendir(full_path);
@@ -130,7 +126,6 @@ void read_or_change(Panel *panel) {
         closedir(dir);
         change_directory(panel);
       }
-      free(full_path);
     }
   }
 }

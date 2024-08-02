@@ -12,24 +12,21 @@ int main() {
     return 1;
   }
   init_ncurses_plugins(&handle, &apply_color_scheme);
-/* Необходимо исправлять баг с новым путем, иначе выллетает все и ломается
-  // char *root_home = get_root_path();  // Получаем путь до корня
-  // if (NULL == root_home) {
-  //   off_color_sheme(handle);
-  //   free(panel_one);
-  //   free(panel_second);
-  //   endwin();
-  // }
-  // Создаем путь к корневой директории
-  // int len = strlen(root_home);
-  // char root_path[len + 1];  // +1 для завершающего нуля
-  // snprintf(root_path, sizeof(root_path), "%s",
-  //          root_home);  // Используем snprintf для безопасного копирования
+  char *root_home = get_root_path();  // Получаем путь до корня
+  if (NULL == root_home) {
+    off_color_sheme(handle);
+    free(panel_one);
+    free(panel_second);
+    endwin();
+  }
+  // путь к корневой директории
+  int len = strlen(root_home);
+  char root_path[len + 1];  // +1 для завершающего нуля
+  snprintf(root_path, sizeof(root_path), "%s/", root_home);
 
-  // free(root_home);  
-*/
-  init_panel(panel_one, ".");
-  init_panel(panel_second, ".");
+  init_panel(panel_one, root_path);
+  init_panel(panel_second, root_path);
+  free(root_home);
   int selected_panel = 0;
   int ch = 'W';
   while (ch != 'q') {

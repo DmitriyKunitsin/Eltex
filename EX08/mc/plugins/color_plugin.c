@@ -1,11 +1,9 @@
 #include "../inc/plugin.h"
 
-
-
 COLOR_LIST *read_color_with_file() {
   char path[24];
   snprintf(path, sizeof(path), "%s%s", PLAGIN_PATH, FILE_NAME);
-  FILE *file = fopen( path, "r");
+  FILE *file = fopen(path, "r");
   COLOR_LIST *color = malloc(2 * sizeof(COLOR_LIST));
   if (file == NULL) {
     color[0] = DEFAULT_ONE_COLOR;
@@ -49,8 +47,6 @@ void on_color_scheme() {
   start_color();
   COLOR_LIST *color_list = read_color_with_file();
   init_pair(1, color_list[0], color_list[1]);
-  // init_pair(1, COLOR_GREEN, COLOR_BLACK);
   free(color_list);
   attron(COLOR_PAIR(1));
 }
-

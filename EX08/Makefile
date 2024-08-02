@@ -21,8 +21,13 @@ string: build_dir
 debug: clean install color_plugin
 	$(GCC) $(CFLAGS) $(SRC_DIR)/mc.c $(BUILD_DIR)/mc.a -g -o $(BIN_DIR)/mc -lncurses
 
-mc: clean install color_plugin
-	$(BIN_DIR)/$(PROGRAMM_NAME)
+mc: start-mc
+	
+start-mc:
+	@echo "Запуск программы..."
+	@$(BIN_DIR)/$(PROGRAMM_NAME)
+
+install-mc: clean install color_plugin
 
 install : lib
 	$(GCC) $(CFLAGS) $(SRC_DIR)/mc.c $(BUILD_DIR)/mc.a -o $(BIN_DIR)/mc -lncurses

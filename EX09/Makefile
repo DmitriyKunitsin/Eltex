@@ -1,6 +1,6 @@
 
 GCC = gcc
-CFLAGS = -std=c11 -Wall -Wextra -Wpedantic
+CFLAGS = -std=c11 -Wall -Werror -Wextra -Wpedantic
 
 EX1 = ex1.c
 EX2 = ex2.c

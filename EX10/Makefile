@@ -33,7 +33,6 @@ debug: build_dir
 
 
 dvi:
-	mkdir -p docs
 	doxygen
 	open market/docs/html/index.html
 

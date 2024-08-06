@@ -71,7 +71,7 @@ void *customer(void *arg) {
 
   while (customer->need > 0) {
     if (customer->need > 0) {
-      attempt_purchase(customer, shops);  /// попытка купить
+      attempt_purchase(customer, shops);
     } else {
       break;
     }
@@ -107,13 +107,13 @@ void add_strock_into_shop(Loader *loader, Shop *shops) {
 int get_static_count(int is_customer, Shop *shop) {
   static int count_satifaction_customer = 0;
   int current_val = 0;
-  if (is_customer) {  /// если покупатель
+  if (is_customer) {  // если покупатель
     pthread_mutex_lock(&shop->mutex);
     count_satifaction_customer += 1;
     current_val = count_satifaction_customer;
     pthread_mutex_unlock(&shop->mutex);
-  } else {                                           /// если грузчик
-    if (pthread_mutex_trylock(&shop->mutex) == 0) {  /// если не занято
+  } else {                                           // если грузчик
+    if (pthread_mutex_trylock(&shop->mutex) == 0) {  // если не занято
       current_val = count_satifaction_customer;
       pthread_mutex_unlock(&shop->mutex);
     }

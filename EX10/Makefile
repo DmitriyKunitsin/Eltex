@@ -26,6 +26,24 @@ market.a: build_dir
 	ar rc $(MARKET_DIR)/$(BUILD_DIR)/market.a $(MARKET_DIR)/$(BUILD_DIR)/market.o 
 	rm -rf $(MARKET_DIR)/$(BUILD_DIR)/market.o
 
+debug: build_dir
+	$(GCC) $(CFLAG) -c $(MARKET_DIR)/market.c -g -o $(MARKET_DIR)/$(BUILD_DIR)/market.o
+	ar rc $(MARKET_DIR)/$(BUILD_DIR)/market.a $(MARKET_DIR)/$(BUILD_DIR)/market.o 
+	$(GCC) $(CFLAG) $(MARKET_DIR)/main.c $(MARKET_DIR)/$(BUILD_DIR)/market.a -o $(MARKET_DIR)/$(BIN_DIR)/market $(PTHREAD)
+
+
+dvi:
+	mkdir -p docs
+	doxygen
+	open market/docs/html/index.html
+
+format: check
+	clang-format --style=file:.clang-format -i market/*.c *.c
+
+check:
+	@clang-format --style=file:.clang-format -n market/*.c *.c
+
+
 build_dir:
 	mkdir -p $(MARKET_DIR)/$(BUILD_DIR)
 	mkdir -p $(MARKET_DIR)/$(BIN_DIR)
@@ -34,3 +52,4 @@ clean:
 	rm -rf $(PROGRAM_NAME)
 	rm -rf $(MARKET_DIR)/$(BUILD_DIR)
 	rm -rf $(MARKET_DIR)/$(BIN_DIR)
+	rm -rf market/docs

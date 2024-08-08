@@ -7,7 +7,7 @@
 #include <fcntl.h>
 
 int main() {
-    const char *fifoName = "my_fifo";
+    const char *fifoName = "server/my_fifo";
 
 
     if (mkfifo(fifoName, 0666) == -1) {

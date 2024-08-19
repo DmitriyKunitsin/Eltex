@@ -16,17 +16,18 @@
 
 
 typedef struct {
-    mqd_t mq;
-    WINDOW *chat_win;
-    Chat_state *state;
-} thread_args_t;
-
-typedef struct {
     int count;
-    int id;
+    int my_id;
     char name[50];
     char text[256];
 } message;
+
+typedef struct {
+    mqd_t mq;
+    WINDOW *chat_win;
+    Chat_state *state;
+    message *msg;
+} thread_args_t;
 
 
 #endif

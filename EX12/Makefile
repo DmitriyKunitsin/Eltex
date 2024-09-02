@@ -20,11 +20,12 @@ task1_system: clean bin_dir
 	$(GCC) $(CFLAG) $(SYSTEM_V)client.c -o $(BIN_DIR)/client_sysv
 
 all: clean bin_dir
-	$(GCC) $(CFLAG) -c $(CLIENT_PROG)front.c -o $(BUILD_DIR)/front.o
-	$(GCC) $(CFLAG) -c $(CLIENT_PROG)utils.c -o $(BUILD_DIR)/utils.o
-	ar rc $(BUILD_DIR)/client.a $(BUILD_DIR)/*.o
-	rm -rf $(BUILD_DIR)/*.o
-	$(GCC) $(CFLAG) $(CLIENT_PROG)/client.c $(BUILD_DIR)/client.a -o $(BIN_DIR)/client_prog $(LNGCURSES) $(LPTHREAD)
+	$(GCC) $(CFLAG) -c $(CLIENT_PROG)client.c -o $(BIN_DIR)/client_prog $(LNGCURSES)
+#	$(GCC) $(CFLAG) -c $(CLIENT_PROG)front.c -o $(BUILD_DIR)/front.o
+#	$(GCC) $(CFLAG) -c $(CLIENT_PROG)utils.c -o $(BUILD_DIR)/utils.o
+#	ar rc $(BUILD_DIR)/client.a $(BUILD_DIR)/*.o
+#	rm -rf $(BUILD_DIR)/*.o
+#	$(GCC) $(CFLAG) $(CLIENT_PROG)/client.c $(BUILD_DIR)/client.a -o $(BIN_DIR)/client_prog $(LNGCURSES) $(LPTHREAD)
 	$(GCC) $(CFLAG) $(SERVER_PROG)server.c -o $(BIN_DIR)/server_prog $(LPTHREAD) 
 
 bin_dir:

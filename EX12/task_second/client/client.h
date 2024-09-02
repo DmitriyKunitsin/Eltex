@@ -1,33 +1,9 @@
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
-#include <fcntl.h>
-#include <mqueue.h>
-#include <ncurses.h>
-#include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
-#include "front.h"
-#include "utils.h"
+#include "../util/util.h"
 
-
-
-
-
-
-typedef struct {
-    int count;
-    int my_id;
-    char name[50];
-    char text[256];
-} message;
-
-typedef struct {
-    mqd_t mq;
-    WINDOW *chat_win;
-    Chat_state *state;
-    message *msg;
-} thread_args_t;
+int registration_message(char name[50],char user_queue_name[50], mqd_t mq_server, WINDOW *input_chat);
 
 
 #endif

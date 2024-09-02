@@ -34,8 +34,6 @@ int main() {
                 printf("%s\n", buffer);
                 const char *message = "SERVER: Hi!";
                 mq_send(mq, message, strlen(message) + 1, 0);
-            } else {
-                printf("Сообщение не от клиента.\n");
             }
 
             if (strcmp(buffer, "CLIENT: exit") == 0) {
